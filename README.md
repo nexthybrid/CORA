@@ -9,7 +9,14 @@ The `example_nonlinear_reach_05_autonomousCar.m` example is the most tempting ex
 
 Alternatively, choose a relatively light-weight example, such as `example_nonlinear_reach_02_vanDerPol_polyZonotope`. This model does not involve auxiliary Jacobian, Hessian, and Tensor model files.
 
-Since the cut-in model is rather complex, we are better-off to start with a simple vehicle model.
+Since the cut-in model is rather complex, we are better-off to start with a simple vehicle model. And we chose a two vehicle car-following model with the IDM controller for the ego vehicle.
+
+### Baby-step 2: Car-following model
+We implemented the simpler two vehicle car-following model (see [here](/Two_vehicle_model_car_follow)for details). And we have some initial reachable set plots:
+
+![Only constant-speed cruise](figures/car_following_constant_speed_cruise.png)
+
+![Adding a somewhat distance-keeping term](figures/car_following_distance_keeping_v1.png)
 
 
 
