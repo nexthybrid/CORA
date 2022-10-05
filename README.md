@@ -14,8 +14,10 @@ Since the cut-in model is rather complex, we are better-off to start with a simp
 ### Baby-step 2: Car-following model
 We implemented the simpler two vehicle car-following model (see [here](/Two_vehicle_model_car_follow)for details). And we have some initial reachable set plots:
 
+Only constant-speed cruise:
 ![Only constant-speed cruise](figures/car_following_constant_speed_cruise.png)
 
+Adding a somewhat distance-keeping term:
 ![Adding a somewhat distance-keeping term](figures/car_following_distance_keeping_v1.png)
 
 
