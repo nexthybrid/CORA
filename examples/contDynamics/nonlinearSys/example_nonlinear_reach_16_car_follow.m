@@ -15,7 +15,7 @@
 %    completed - boolean 
 %
 % References: 
-%   [1] One_vehicle_model_car_follow.pdf (root folder in this branch)
+%   [1] Two_vehicle_model_car_follow.pdf (root folder in this branch)
 
 % Author:       Tong Zhao
 % Written:      04-Oct-2022
@@ -34,7 +34,7 @@ R0 = zonotope([[15;1;15;20], diag([1,1,5,1])]);    % initial set
 % Reachability Settings ---------------------------------------------------
 
 % settings
-options.timeStep = 0.005;                           
+options.timeStep = 0.05;                           
 options.taylorTerms = 4;                            
 options.zonotopeOrder = 50;       
 options.intermediateOrder = 50;
@@ -68,7 +68,8 @@ params.R0 = R0;
 % we can calculate the center as (-4 + -2)/2 = -3, and the amplitude
 % as (-2 - -4)/2 = 1. So center = -3, generator = 1. The generator
 % is a term used in zonotope definition. See Girard 2005.
-params.U = zonotope([-3,1]); 
+u_center = -3; u_amp = 1;
+params.U = zonotope([u_center,u_amp]); 
 
 % compute reachable set
 tic
@@ -96,12 +97,13 @@ disp(['computation time (zonotope): ',num2str(tComp)]);
 % Visualization -----------------------------------------------------------
 
 %--- combined two vehicle states
-figure; hold on;
+figure('Position',[100 100 800 300]); 
+tiledlayout(1,2);
+nexttile;
+hold on;
 % plot reachable set (zonotope)
-handleVeh2 = plot(R,[3,4],'FaceColor',[0 1 0],'EdgeColor','none');
-% alpha(handleVeh1,0.5);
-handleVeh1 = plot(R,[1,2],'FaceColor',[0 0 1],'EdgeColor','none');
-% alpha(handleVeh1,0.5);
+handleVeh2 = plot(R,[3,4],'FaceColor','none','EdgeColor',[0 0 1],'FaceAlpha',0.3);
+handleVeh1 = plot(R,[1,2],'FaceColor','none','EdgeColor',[0 1 0],'FaceAlpha',0.3);
 
 % plot initial set
 plot(R0,[3,4],'w','Filled',true,'EdgeColor','k');
@@ -110,9 +112,21 @@ plot(R0,[1,2],'w','Filled',true,'EdgeColor','k');
 xlabel('velocity (m/s)');
 ylabel('position (m)');
 legend([handleVeh1,handleVeh2],'vehicle 1','vehicle 2');
-title()
+title(['Car following with a2 ranging from ',...
+    num2str(u_center-u_amp), ' to ',num2str(u_center+u_amp) ]);
 
 %--- (TBD) visualize vehicle states over time
+% we want to visualize sets w.r.t. time. 
+% Option 1: a 2D plot of sx-t.
+% Option 2: a 3D plot of sx-v-t. 
+nexttile; hold on;
+% plot reachable set (zonotope) over time
+handleVeh2 = plotOverTime(R,[3,4],'FaceColor',[0 1 0],'EdgeColor','none','FaceAlpha',0.3);
+handleVeh1 = plotOverTime(R,[1,2],'FaceColor',[0 0 1],'EdgeColor','none','FaceAlpha',0.3);
+xlabel('time (s)');
+ylabel('position (m)');
+legend([handleVeh1,handleVeh2],'vehicle 1','vehicle 2');
+title('Position over time');
 
 % example completed
 completed = 1;

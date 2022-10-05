@@ -13,7 +13,7 @@ function dx = carFollwEq(x,u)
 %    dx - time-derivate of the system state
 % 
 % References:
-%    [1] One_vehicle_model_car_follow.pdf (root folder in this branch)
+%    [1] Two_vehicle_model_car_follow.pdf (root folder in this branch)
 
 % Author:        Tong Zhao
 % Written:       04-Oct-2022
